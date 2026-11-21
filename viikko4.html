@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <title>Week 4, the back up</title>
+</head>
+<body>
+
+    <h1 style="text-align: center; color: #203040;">
+        Week 4, server 2, the one which replicates counter from week 2
+    </h1>
+
+    <div style="text-align: center; margin: 15px;">
+        <img src="{{ url_for('static', filename='kuvat/hammasratas.gif') }}"
+             alt="Pyörivä hammasratas"
+             width="100">
+    </div>
+
+    <h2 style="text-align: center; color: #203040;">
+        Server 2, or B if you prefer.
+    </h2>
+
+    <p style="text-align: center;">
+        Count number from server 1
+    </p>
+
+    <h2 style="text-align: center; color: #203040;">
+        {{ kaynnit }}
+    </h2>
+
+    </p>
+
+    <h2 style="text-align: center; color: #203040;">
+        The Origin
+    </h2>
+
+    <p style="text-align: center;">
+        At first I took a snapshot from the original server. Then i created a new server with similar specs using the snapshot. <br>
+	After server was running started tweaking settings here and there. Both back up script and log file have their own folders at server 1. <br>
+	Back up copies will be taken every hour and will be moved to server 2 via SSH connection. 
+    <p style="text-align: center;">
+
+	For system poking and usage, the system has several users: ubuntu for administration and editing. <br>
+	Ubuntu user get all necessary priviledges with sudo command. For server1, app user has right to increase <br>
+	counter value. For server replication specific user has right to read binary logs and replicate database. <br>
+
+    <p style="text-align: center;">
+
+	At server 2 application user can only use the SELECT command for reading database. <br>
+	Back up files are only accessible for ubuntu user.
+    </p>
+	<h2 style="text-align: center; color: #203040;">
+    Back up tests
+</h2>
+
+    </h2>
+
+    <p style="text-align: center;">
+        Website backup:
+        <br>
+        www_2026-11-21_09-50-27
+        <br>
+        www_2026-11-21_09-53-17
+        <br>
+        www_2026-11-21_10-00-01
+        <br>
+        Result: SUCCESS
+        <br><br>
+
+ <h2 style="text-align: center; color: #203040;">
+        Database backups
+    </h2>
+
+    <p style="text-align: center;">
+        In addition to continuous database replication,
+        Server 1 creates a compressed MariaDB dump every night
+        at 02:30.
+        <br>
+        The dump includes all databases, routines, events and triggers.
+        <br>
+        The backup is transferred to Server 2 using SSH.
+        <br>
+        Database backups are stored in:
+        <br>
+        /var/backups/db/
+        <br>
+        The retention policy removes database dump files older
+        than 14 days.
+    </p>
+
+</p>
+    <div style="text-align: center;">
+        <p>
+            <a href="http://195.148.21.45/viikko2/">
+                Week 2 - Server1
+            </a>
+       
+        </p>
+
+        <p>
+    <a href="https://github.com/jtsvierela-star/Viikko4" target="_blank">
+        Week 4 – GitHub Repository
+    </a>
+</p>
+    </div>
+
+</body>
+</html>
+
