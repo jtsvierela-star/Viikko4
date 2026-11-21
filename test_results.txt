@@ -1,0 +1,53 @@
+# Week 4 – Test Results
+
+## 1. Website Backup
+
+- Backup script: `backup_www.sh`
+- Website files are backed up using rsync.
+- Source server: Server 1.
+- Destination server: Server 2.
+- Backups are stored in `/var/backups/www/`.
+- Each backup is stored in a timestamped directory.
+
+Tests:
+- Shell script syntax check completed successfully.
+- Manual backup completed successfully.
+- Two manual backups completed successfully.
+- Scheduled automatic backup completed successfully.
+- Backup contents were verified on the destination server.
+
+## 2. Website File Restoration Test
+
+- The file `index.html` was restored from a backup to a separate test directory.
+- The SHA256 checksums of the original and restored files were identical.
+
+Result: Restoration test passed.
+
+## 3. MariaDB Database Backup
+
+- Backup script: `backup_db.sh`
+- All databases are backed up using `mariadb-dump`.
+- Backup files are compressed using gzip.
+- Database backups are transferred to Server 2.
+- Destination directory: `/var/backups/db/`.
+- Backups older than 14 days are automatically deleted.
+
+Tests:
+- Shell script syntax check completed successfully.
+- Manual database backup completed successfully.
+- Backup archive integrity was verified
+
+## 4. MariaDB Replication
+
+- Server 1 acts as the primary database server.
+- Server 2 acts as the replica server.
+- Replication operates through the servers' private network.
+- Server 2 is configured with read-only mode for ordinary database writes.
+
+Tests:
+- Replication IO and SQL threads were running.
+- Seconds_Behind_Master was 0.
+- A counter update on Server 1 appeared in the database on Server 2.
+- Loading the website on Server 2 did not change the counter value.
+
+
