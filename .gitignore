@@ -1,0 +1,6 @@
+*.log
+*.sql
+*.sql.gz
+*.tmp
+backup_to_server2
+known_hosts
