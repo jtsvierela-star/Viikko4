@@ -1,0 +1,58 @@
+# Week 4 – MariaDB Replication Configuration
+
+## 1. Server Information
+
+Server 1 – Primary database server  
+Hostname: tuomas1linux  
+Private IP address: 192.168.1.182  
+MariaDB server ID: 1
+
+Server 2 – Replica database server  
+Hostname: tuomas2linux  
+Private IP address: 192.168.1.205  
+MariaDB server ID: 2
+
+## 2. Primary Server Configuration
+
+MariaDB binary logging is enabled on Server 1.
+
+Configuration file:  
+`/etc/mysql/mariadb.conf.d/50-server.cnf`
+
+Settings:
+- `server-id = 1`
+- `log_bin = /var/log/mysql/mariadb-bin`
+- `binlog_format = ROW`
+- `binlog_do_db = viikko2`
+- `bind-address = 192.168.1.182`
+
+## 3. Replica Server Configuration
+
+MariaDB replication is configured on Server 2.
+
+Settings:
+- `server-id = 2`
+- `read_only = ON`
+
+
+## 4. Replication User
+
+A dedicated MariaDB user named `palvelin2` is used for replication.
+
+The user has the `REPLICATION SLAVE` privilege.
+
+The account is restricted to connections from Server 2's private IP address.
+
+
+## 5. Replication Status
+
+Replication was verified using:
+
+`SHOW SLAVE STATUS\G`
+
+Successful test results:
+- `Slave_IO_Running: Yes`
+- `Slave_SQL_Running: Yes`
+- `Seconds_Behind_Master: 0`
+- `Last_IO_Error: Empty`
+- `Last_SQL_Error: Empty`
